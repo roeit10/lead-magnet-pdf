@@ -1,0 +1,11 @@
+context/
+outputs/
+.env
+demo/
+.filming/
+*תסריט*
+script/
+publishing/
+VIDEO.md
+.DS_Store
+__pycache__/

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>{{title}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={{font_query}}&display=swap" rel="stylesheet">
+<style>
+/* ===== THEME - הסקיל ממלא מהמיתוג של העסק. אין מיתוג → ברירת מחדל נייטרלית ===== */
+:root{
+  --primary:{{primary}};
+  --accent:{{accent}};
+  --bg:{{bg}};
+  --ink:{{ink}};
+  --muted:{{muted}};
+  --font:{{font}};
+  --font-head:{{font_head}};
+  --radius:{{radius}};
+  --border:{{border}};
+  --shadow:{{shadow}};
+  --tilt:{{tilt}};
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--font);font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased}
+@page{size:A4;margin:0}
+.page{width:210mm;height:297mm;background:var(--bg);{{bg_pattern}}padding:18mm 16mm 16mm;position:relative;page-break-after:always;overflow:hidden}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:var(--font-head);font-weight:900;line-height:1.08;letter-spacing:-0.02em}
+.ribbon{display:flex;align-items:center;justify-content:space-between;margin-bottom:12mm}
+.logo{font-family:var(--font-head);font-weight:900;font-size:20px;background:var(--ink);color:var(--bg);padding:6px 14px;transform:rotate(var(--tilt));display:inline-block}
+.page-no{font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--muted);direction:ltr;unicode-bidi:isolate}
+.tag{display:inline-block;background:var(--accent);color:var(--ink);font-family:var(--font-head);font-weight:700;font-size:13px;padding:5px 12px;border:var(--border);transform:rotate(calc(var(--tilt) * -1));margin-bottom:8mm}
+h1{font-size:44px;margin-bottom:6mm}
+.hl{background:var(--primary);color:#fff;padding:0 8px;display:inline-block}
+.hl-2{background:var(--accent);color:var(--ink);padding:0 8px;display:inline-block}
+.lead{font-size:17px;line-height:1.6;color:var(--muted);max-width:150mm;margin-bottom:8mm}
+.box{border:var(--border);box-shadow:var(--shadow);background:#fff;padding:7mm 8mm;border-radius:var(--radius);margin-bottom:8mm}
+.box h3{font-size:15px;margin-bottom:3mm}
+.box ul{list-style:none}
+.box li{padding:2mm 0;border-bottom:1px dashed rgba(0,0,0,.2);font-size:14px;display:flex;gap:8px}
+.box li:last-child{border-bottom:0}
+.box li::before{content:"★";color:var(--primary);font-weight:900}
+.section{margin-bottom:7mm}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:3mm}
+.section-num{font-family:var(--font-head);font-weight:900;font-size:13px;background:var(--ink);color:var(--bg);padding:3px 9px}
+.section h2{font-size:22px}
+.section p{font-size:14.5px;line-height:1.85;text-align:justify}
+.section p + p{margin-top:3mm}
+.steps{border:var(--border);background:#fff;border-radius:var(--radius);padding:5mm 7mm;margin-top:4mm;box-shadow:var(--shadow)}
+.steps li{list-style:none;display:flex;gap:10px;padding:2.5mm 0;border-bottom:1px dashed rgba(0,0,0,.2);font-size:14px}
+.steps li:last-child{border-bottom:0}
+.steps .n{font-family:var(--font-head);font-weight:900;color:var(--primary);min-width:22px}
+.metrics{display:flex;gap:5mm;margin-top:5mm}
+.metric{flex:1;border:var(--border);background:var(--accent);padding:4mm;text-align:center;border-radius:var(--radius)}
+.metric b{display:block;font-family:var(--font-head);font-size:26px;font-weight:900;line-height:1}
+.metric span{font-size:12px;color:var(--ink)}
+.check{list-style:none;margin-top:4mm}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:3mm 0;border-bottom:1px dashed rgba(0,0,0,.2);font-size:14.5px}
+.check li::before{content:"";width:16px;height:16px;border:3px solid var(--ink);flex:none;margin-top:3px;background:#fff}
+.insight{border:var(--border);background:var(--primary);color:#fff;padding:6mm 8mm;margin-top:7mm;box-shadow:var(--shadow);border-radius:var(--radius)}
+.insight b{display:block;font-family:var(--font-head);font-size:13px;letter-spacing:.1em;margin-bottom:2mm;opacity:.85}
+.insight p{font-size:16px;line-height:1.6;font-weight:700}
+.cta{border:var(--border);background:#fff;padding:7mm 8mm;margin-top:8mm;box-shadow:var(--shadow);border-radius:var(--radius);display:flex;justify-content:space-between;align-items:center;gap:6mm}
+.cta h3{font-size:20px;margin-bottom:2mm}
+.cta p{font-size:14px;color:var(--muted)}
+.cta .btn{background:var(--accent);border:var(--border);padding:4mm 6mm;font-family:var(--font-head);font-weight:900;font-size:15px;white-space:nowrap;transform:rotate(calc(var(--tilt) * -1))}
+.cta .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:2mm;font-size:12.5px}
+.cta .meta span[dir=ltr]{unicode-bidi:isolate}
+.footer{position:absolute;bottom:10mm;right:16mm;left:16mm;display:flex;justify-content:space-between;font-size:11px;color:var(--muted);border-top:1px solid rgba(0,0,0,.15);padding-top:2mm}
+.footer span[dir=ltr]{unicode-bidi:isolate}
+mark.missing{background:#FFF3A3;color:#5A4A00;padding:0 4px;font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ===== 01 ===== -->
+<section class="page">
+ <div class="ribbon"><span class="logo">{{brand}}</span><span class="page-no">01 / 04</span></div>
+ <span class="tag">{{tag}}</span>
+ <h1>{{title_html}}</h1>
+ <p class="lead">{{lead}}</p>
+ <div class="box"><h3>מה תקבלו במדריך</h3><ul>{{learn_items}}</ul></div>
+ <div class="section">
+  <div class="section-head"><span class="section-num">01</span><h2>{{s1_title}}</h2></div>
+  {{s1_body}}
+ </div>
+ <div class="footer"><span>{{brand}} · {{title}}</span><span dir="ltr">{{site}}</span></div>
+</section>
+
+<!-- ===== 02 ===== -->
+<section class="page">
+ <div class="ribbon"><span class="logo">{{brand}}</span><span class="page-no">02 / 04</span></div>
+ <div class="section">
+  <div class="section-head"><span class="section-num">02</span><h2>{{s2_title}}</h2></div>
+  {{s2_body}}
+  <ul class="steps">{{s2_steps}}</ul>
+  <div class="metrics">{{s2_metrics}}</div>
+ </div>
+ <div class="footer"><span>{{brand}} · {{title}}</span><span dir="ltr">{{site}}</span></div>
+</section>
+
+<!-- ===== 03 ===== -->
+<section class="page">
+ <div class="ribbon"><span class="logo">{{brand}}</span><span class="page-no">03 / 04</span></div>
+ <div class="section">
+  <div class="section-head"><span class="section-num">03</span><h2>{{s3_title}}</h2></div>
+  {{s3_body}}
+ </div>
+ <div class="section">
+  <div class="section-head"><span class="section-num">04</span><h2>{{s4_title}}</h2></div>
+  {{s4_body}}
+ </div>
+ <div class="footer"><span>{{brand}} · {{title}}</span><span dir="ltr">{{site}}</span></div>
+</section>
+
+<!-- ===== 04 ===== -->
+<section class="page">
+ <div class="ribbon"><span class="logo">{{brand}}</span><span class="page-no">04 / 04</span></div>
+ <div class="section">
+  <div class="section-head"><span class="section-num">05</span><h2>{{s5_title}}</h2></div>
+  <ul class="check">{{s5_items}}</ul>
+ </div>
+ <div class="insight"><b>הדבר האחד לקחת מכאן</b><p>{{insight}}</p></div>
+ <div class="cta">
+  <div><h3>{{cta_title}}</h3><p>{{cta_text}}</p><div class="meta">{{cta_meta}}</div></div>
+  <div class="btn">{{cta_button}}</div>
+ </div>
+ <div class="footer"><span>{{brand}} · {{title}}</span><span dir="ltr">{{site}}</span></div>
+</section>
+
+</body>
+</html>
