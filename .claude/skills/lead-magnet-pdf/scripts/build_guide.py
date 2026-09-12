@@ -18,6 +18,18 @@ def esc(s): return html.escape(str(s or ""))
 def mark(s):
     # [חסר: ...] stays visible and yellow inside the text
     return re.sub(r"\[חסר:([^\]]*)\]", r'<mark class="missing">[חסר:\1]</mark>', esc(s))
+def meta_item(x):
+    """Contact line items: a site becomes a link, a phone becomes tel:, the rest stays text."""
+    x = str(x).strip()
+    if re.match(r"^(https?://)?[\w-]+(\.[\w-]+)+(/\S*)?$", x):
+        href = x if x.startswith("http") else "https://" + x
+        return f'<a dir="ltr" href="{esc(href)}" style="color:inherit;text-decoration:none">{esc(x)}</a>'
+    if re.match(r"^[+\d][\d\s()-]{6,}$", x):
+        return f'<a dir="ltr" href="tel:{esc(re.sub(r"[^\d+]", "", x))}" style="color:inherit;text-decoration:none">{esc(x)}</a>'
+    if re.match(r"^[\w.+-]+@[\w-]+\.[\w.]+$", x):
+        return f'<a dir="ltr" href="mailto:{esc(x)}" style="color:inherit;text-decoration:none">{esc(x)}</a>'
+    return f"<span>{esc(x)}</span>"
+
 def paras(text): return "".join(f"<p>{mark(p.strip())}</p>" for p in str(text).split("\n\n") if p.strip())
 def hl(title, w1, w2):
     t = esc(title)
@@ -46,7 +58,7 @@ def main():
         "insight": mark(c.get("insight", "")),
         "cta_url": esc(cta.get("button_url") or "#"), "site_url": esc(("https://" + c["site"]) if c.get("site") and not str(c["site"]).startswith("http") else c.get("site","#")),
         "cta_title": esc(cta["title"]), "cta_text": mark(cta.get("text", "")), "cta_button": esc(cta.get("button", "")),
-        "cta_meta": "".join(f'<span dir="ltr">{esc(x)}</span>' if re.match(r"^[\w@.+:/ -]+$", x) else f"<span>{esc(x)}</span>" for x in cta.get("meta", [])),
+        "cta_meta": "".join(meta_item(x) for x in cta.get("meta", [])),
     }
     for k, v in fill.items(): s = s.replace("{{" + k + "}}", v)
     left = re.findall(r"\{\{\w+\}\}", s)
