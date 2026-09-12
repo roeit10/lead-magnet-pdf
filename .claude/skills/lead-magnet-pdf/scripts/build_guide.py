@@ -44,6 +44,7 @@ def main():
         "s4_title": esc(secs[3]["title"]), "s4_body": paras(secs[3]["body"]),
         "s5_title": esc(s5["title"]), "s5_items": "".join(f"<li>{mark(i)}</li>" for i in s5.get("items", [])),
         "insight": mark(c.get("insight", "")),
+        "cta_url": esc(cta.get("button_url") or "#"), "site_url": esc(("https://" + c["site"]) if c.get("site") and not str(c["site"]).startswith("http") else c.get("site","#")),
         "cta_title": esc(cta["title"]), "cta_text": mark(cta.get("text", "")), "cta_button": esc(cta.get("button", "")),
         "cta_meta": "".join(f'<span dir="ltr">{esc(x)}</span>' if re.match(r"^[\w@.+:/ -]+$", x) else f"<span>{esc(x)}</span>" for x in cta.get("meta", [])),
     }
